@@ -16,4 +16,16 @@ class UserController extends Controller
         $results = app('db')->select("SELECT * FROM User");
         return Response::create($results);
     }
+
+    /**
+     * Retrieve the user for the given ID.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $user = app('db')->select("SELECT * FROM User WHERE UserID = ".$id);
+        return Response::create($user);
+    }
 }

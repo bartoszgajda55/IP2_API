@@ -12,9 +12,10 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return "You are in a right place ";
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('user',  ['uses' => 'UserController@index']);
+    $router->get('user/{id}',  ['uses' => 'UserController@show']);
 });
