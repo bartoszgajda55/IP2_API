@@ -20,4 +20,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('user/{id}',  ['uses' => 'UserController@show']);
     $router->post('user/login',  ['uses' => 'UserController@check']);
     $router->post('user/register',  ['uses' => 'UserController@create']);
+
+    $router->get('quiz', ['uses' => 'QuizController@index']);
+    $router->get('quiz/{id}',  ['uses' => 'QuizController@show']);
 });
