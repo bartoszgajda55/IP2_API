@@ -23,4 +23,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('quiz', ['uses' => 'QuizController@index']);
     $router->get('quiz/{id}',  ['uses' => 'QuizController@show']);
+    $router->get('quiz/{id}/questions',  ['uses' => 'QuizController@showQuestions']);
 });

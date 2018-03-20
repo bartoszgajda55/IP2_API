@@ -34,4 +34,20 @@ class QuizController extends Controller
         }
     }
 
+    /**
+     * Retrieve the quiz for the given ID.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function showQuestions($id)
+    {
+        $questions = Quiz::find($id)->questions;
+        if($questions) {
+            return Response::create($questions, 200);
+        } else {
+            return Response::create([], 404);
+        }
+    }
+
 }
