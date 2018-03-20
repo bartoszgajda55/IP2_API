@@ -27,8 +27,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::all()->where('UserID', $id);
-        return Response::create($user);
+        $user = User::find($id);
+        if($user) {
+            return Response::create($user, 200);
+        } else {
+            return Response::create([], 404);
+        }
     }
 
     /**
@@ -45,8 +49,9 @@ class UserController extends Controller
         $user = User::all()->where('Email', $email)->where('Password', $password);
         if($user) {
             return Response::create($user, 200);
+        } else {
+            return Response::create([], 404);
         }
-        return Response::create([], 404);
     }
 
     /**

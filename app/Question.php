@@ -4,21 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quiz extends Model
+class Question extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'Quiz';
+    protected $table = 'Question';
 
     /**
      * The primary key associated with model.
      *
      * @var string
      */
-    protected $primaryKey = 'QuizID';
+    protected $primaryKey = 'QuestionID';
 
     /**
      * Indicates if the model should be timestamped.
@@ -28,10 +28,10 @@ class Quiz extends Model
     public $timestamps = false;
 
     /**
-     * Get the questions for the quiz.
+     * Get the quiz that owns the question.
      */
-    public function questions()
+    public function quiz()
     {
-        return $this->hasMany('App\Question', 'QuizID');
+        return $this->belongsTo('App\Quiz');
     }
 }
