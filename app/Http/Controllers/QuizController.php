@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,7 +15,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $results = app('db')->select("SELECT * FROM Quiz INNER JOIN Question ON Quiz.QuizID = Question.QuizID");
+        $results = Quiz::all();
         return Response::create($results);
     }
 
@@ -26,7 +27,7 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        $quiz = app('db')->select("SELECT * FROM Quiz WHERE QuizID = ".$id);
+        $quiz = Quiz::all()->where('QuizID', $id);
         return Response::create($quiz);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $results = app('db')->select("SELECT * FROM User");
+        $results = User::all();
         return Response::create($results);
     }
 
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = app('db')->select("SELECT * FROM User WHERE UserID = ".$id);
+        $user = User::all()->where('UserID', $id);
         return Response::create($user);
     }
 
@@ -41,7 +42,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        $user = app('db')->select("SELECT * FROM User WHERE Email = '".$email."' AND Password = '".$password."'");
+        $user = User::all()->where('Email', $email)->where('Password', $password);
         if($user) {
             return Response::create($user, 200);
         }
@@ -56,24 +57,18 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $username = $request->input('username');
-        $email = $request->input('email');
-        $firstname = $request->input('firstname');
-        $surname = $request->input('surname');
-        $password = $request->input('password');
+        $user = new User();
+        $user->Username = $request->input('username');
+        $user->Email = $request->input('email');
+        $user->Firstname = $request->input('firstname');
+        $user->Surname = $request->input('surname');
+        $user->password = $request->input('password');
 
-        $user = app('db')->insert('INSERT INTO User (Username, Email, Firstname, Surname, Password) VALUES (?, ?, ?, ?, ?)', [
-            $username,
-            $email,
-            $firstname,
-            $surname,
-            $password
-        ]);
-
-        if($user) {
-            $user = app('db')->select("SELECT * FROM User WHERE Username = '".$username."'");
+        if($user->save()) {
+            $user = User::all()->where('Username', $user->Username);
             return Response::create($user, 201);
+        } else {
+            return Response::create([], 500);
         }
-        return Response::create([], 500);
     }
 }

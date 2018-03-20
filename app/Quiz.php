@@ -4,21 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Quiz extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'User';
+    protected $table = 'Quiz';
 
     /**
      * The primary key associated with model.
      *
      * @var string
      */
-    protected $primaryKey = 'UserID';
+    protected $primaryKey = 'QuizID';
 
     /**
      * Indicates if the model should be timestamped.
