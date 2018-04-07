@@ -43,8 +43,17 @@ class UserController extends Controller
      */
     public function check(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
+        if($request->has('email')) {
+            $email = $request->input('email');
+        } else {
+            return Response::create([], 404);
+        }
+
+        if($request->has('password')) {
+            $password = $request->input('password');
+        } else {
+            return Response::create([], 404);
+        }
 
         $user = User::all()->where('Email', $email)->where('Password', $password);
         if($user) {
