@@ -56,7 +56,7 @@ class UserController extends Controller
         }
 
         $user = User::all()->where('Email', $email)->where('Password', $password);
-        if($user) {
+        if($user->isNotEmpty()) {
             return Response::create($user, 200);
         } else {
             return Response::create([], 404);
