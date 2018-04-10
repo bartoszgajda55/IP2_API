@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Throwable;
 
 class BlacklistController extends Controller
 {
@@ -41,8 +42,27 @@ class BlacklistController extends Controller
         try {
             $ban->save();
             return Response::create([], 201);
-        } catch (FatalThrowableError | QueryException $error) {
+        } catch (Throwable | QueryException $error) {
             return Response::create([], 500);
         }
     }
+
+    /**
+     * Remove the ban for the given ID.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function remove($id)
+    {
+        $ban = Blacklist::find($id);
+
+        try {
+            $ban->delete();
+            return Response::create([], 200);
+        } catch (Throwable | QueryException $error) {
+            return Response::create([], 500);
+        }
+    }
+
 }

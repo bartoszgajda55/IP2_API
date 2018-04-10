@@ -35,4 +35,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('blacklist/{id}', ['uses' => 'BlacklistController@show']);
     $router->post('blacklist',  ['uses' => 'BlacklistController@create']);
+    $router->delete('blacklist/{id}',  ['uses' => 'BlacklistController@remove']);
 });
