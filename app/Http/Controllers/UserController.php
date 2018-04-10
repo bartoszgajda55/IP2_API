@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!$user) {
-            return Response::create([], 404);
+            return Response::create(['message' => 'user does not exist'], 404);
         }
 
         if($request->has('username')) {
@@ -95,20 +95,25 @@ class UserController extends Controller
         if($request->has('email')) {
             $email = $request->input('email');
         } else {
-            return Response::create([], 404);
+            return Response::create([], 400);
         }
 
         if($request->has('password')) {
             $password = $request->input('password');
         } else {
-            return Response::create([], 404);
+            return Response::create([], 400);
         }
 
-        $user = User::all()->where('Email', $email)->where('Password', $password)->first();
-        if(count($user)) {
+        $user = User::where('Email', $email)->first();
+
+        if (!$user) {
+            return Response::create(['message' => 'email not found'], 404);
+        }
+
+        if ($password === $user->Password) {
             return Response::create([$user], 200);
         } else {
-            return Response::create([], 404);
+            return Response::create(['message' => 'passwords do not match'], 400);
         }
     }
 
