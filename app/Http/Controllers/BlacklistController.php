@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Blacklist;
-use App\FeaturedQuiz;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 class BlacklistController extends Controller
 {
     /**
-     * Retrieve the quiz for the given ID.
+     * Retrieve the ban for the given ID.
      *
      * @param  int  $id
      * @return Response
@@ -22,6 +23,26 @@ class BlacklistController extends Controller
             return Response::create($ban, 200);
         } else {
             return Response::create([], 404);
+        }
+    }
+
+    /**
+     * Create new ban
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function create(Request $request)
+    {
+        $ban = new Blacklist();
+        $ban->UserID = $request->input('userid');
+        $ban->BanReason = $request->input('reason');
+
+        try {
+            $ban->save();
+            return Response::create([], 201);
+        } catch (FatalThrowableError | QueryException $error) {
+            return Response::create([], 500);
         }
     }
 }
