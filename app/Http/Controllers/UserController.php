@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserFriend;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -48,6 +49,22 @@ class UserController extends Controller
         $user = User::find($id);
         if($user) {
             return Response::create([$user], 200);
+        } else {
+            return Response::create([], 404);
+        }
+    }
+
+    /**
+     * Retrieve the user friends for the given user ID.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function showFriends($id)
+    {
+        $userFriends = UserFriend::where('User1ID', $id)->get();
+        if($userFriends->isNotEmpty()) {
+            return Response::create($userFriends, 200);
         } else {
             return Response::create([], 404);
         }
