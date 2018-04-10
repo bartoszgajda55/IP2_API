@@ -71,6 +71,28 @@ class UserController extends Controller
     }
 
     /**
+     * Retrieve the user position in ranking
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function getRankingPosition($id)
+    {
+        $usersList = User::orderBy("XP", "DESC")->get();
+
+        $position = null;
+        foreach($usersList as $key => $value) {
+            if ($value->UserID == $id) {
+                $position = $key;
+            }
+        }
+        if ($position === null) {
+            return Response::create([], 400);
+        }
+        return Response::create($position, 200);
+    }
+
+    /**
      * Edit user entity
      *
      * @param  Request  $request

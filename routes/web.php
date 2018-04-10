@@ -19,6 +19,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('user',  ['uses' => 'UserController@index']);
     $router->get('user/{id}',  ['uses' => 'UserController@show']);
     $router->get('user/{id}/friends',  ['uses' => 'UserController@showFriends']);
+    $router->get('user/{id}/ranking',  ['uses' => 'UserController@getRankingPosition']);
     $router->post('user/{id}/edit',  ['uses' => 'UserController@edit']);
     $router->post('user/find',  ['uses' => 'UserController@find']);
     $router->post('user/login',  ['uses' => 'UserController@check']);
