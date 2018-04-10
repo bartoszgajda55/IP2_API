@@ -67,6 +67,15 @@ class UserController extends Controller
         if($request->has('adminstatus')) {
             $user->AdminStatus = $request->input('adminstatus');
         }
+        if($request->has('xp')) {
+            $user->XP = $request->input('xp');
+        }
+        if($request->has('quizesscompleted')) {
+            $user->QuizessCompleted = $request->input('quizesscompleted');
+        }
+        if($request->has('correctanswers')) {
+            $user->CorrectAnswers = $request->input('correctanswers');
+        }
 
         if($user->save()) {
             return Response::create([], 200);
