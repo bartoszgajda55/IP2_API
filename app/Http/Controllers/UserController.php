@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if($user) {
-            return Response::create($user, 200);
+            return Response::create([$user], 200);
         } else {
             return Response::create([], 404);
         }
@@ -95,9 +95,9 @@ class UserController extends Controller
             return Response::create([], 404);
         }
 
-        $user = User::all()->where('Email', $email)->where('Password', $password);
-        if($user->isNotEmpty()) {
-            return Response::create($user, 200);
+        $user = User::all()->where('Email', $email)->where('Password', $password)->first();
+        if(count($user)) {
+            return Response::create([$user], 200);
         } else {
             return Response::create([], 404);
         }
@@ -119,8 +119,8 @@ class UserController extends Controller
         $user->password = $request->input('password');
 
         if($user->save()) {
-            $user = User::all()->where('Username', $user->Username);
-            return Response::create($user, 201);
+            $user = User::all()->where('Username', $user->Username)->first();
+            return Response::create([$user], 201);
         } else {
             return Response::create([], 500);
         }
