@@ -62,7 +62,7 @@ class UserController extends Controller
      */
     public function showFriends($id)
     {
-        $userFriends = UserFriend::where('User1ID', $id)->get();
+        $userFriends = UserFriend::where('User1ID', $id)->orWhere('User2ID', $id)->get();
         if($userFriends->isNotEmpty()) {
             return Response::create($userFriends, 200);
         } else {
@@ -89,7 +89,7 @@ class UserController extends Controller
         if ($position === null) {
             return Response::create([], 400);
         }
-        return Response::create($position, 200);
+        return Response::create(['position' => $position], 200);
     }
 
     /**
