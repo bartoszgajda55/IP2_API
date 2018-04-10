@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -15,8 +17,24 @@ class UserController extends Controller
      */
     public function index()
     {
-        $results = User::all();
-        return Response::create($results);
+        $term = Input::get('term');
+        $order = Input::get('order');
+        $limit = Input::get('limit');
+
+        try {
+            if($term && $limit) {
+                return Response::create(User::orderBy($term, $order)->limit($limit)->get());
+            } else if ($term) {
+                return Response::create(User::orderBy($term, $order)->get());
+            } else if ($limit) {
+                return Response::create(User::limit($limit)->get());
+            } else {
+                return Response::create(User::get());
+            }
+        } catch (QueryException $exception) {
+            return Response::create([], 400);
+        }
+
     }
 
     /**
