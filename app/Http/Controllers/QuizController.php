@@ -106,4 +106,23 @@ class QuizController extends Controller
         }
     }
 
+    /**
+     * Remove the quiz for the given ID.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function remove($id)
+    {
+        $quiz = Quiz::find($id);
+
+        try {
+            $quiz->delete();
+            return Response::create([], 200);
+        } catch (Throwable | QueryException $error) {
+            return Response::create([], 500);
+        }
+    }
+
+
 }
