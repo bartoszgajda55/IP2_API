@@ -85,4 +85,25 @@ class QuizController extends Controller
         }
     }
 
+    /**
+     * Create a new quiz
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function create(Request $request)
+    {
+        $quiz = new Quiz();
+        $quiz->QuizName = $request->input('quizname');
+        $quiz->QuizDescription = $request->input('quizdescription');
+        $quiz->QuizImage = $request->input('quizimage');
+        $quiz->QuizColor = $request->input('quizcolor');
+
+        if($quiz->save()) {
+            return Response::create([$quiz], 201);
+        } else {
+            return Response::create([], 500);
+        }
+    }
+
 }
