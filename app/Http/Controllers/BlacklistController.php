@@ -6,7 +6,6 @@ use App\Blacklist;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
 class BlacklistController extends Controller
