@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if(!$user) {
-            return Response::create(['message' => 'user does not exist'], 404);
+            return Response::create([], 404);
         }
 
         if($request->has('username')) {
@@ -107,13 +107,13 @@ class UserController extends Controller
         $user = User::where('Email', $email)->first();
 
         if (!$user) {
-            return Response::create(['message' => 'email not found'], 404);
+            return Response::create([], 404);
         }
 
         if ($password === $user->Password) {
             return Response::create([$user], 200);
         } else {
-            return Response::create(['message' => 'passwords do not match'], 400);
+            return Response::create([], 400);
         }
     }
 
