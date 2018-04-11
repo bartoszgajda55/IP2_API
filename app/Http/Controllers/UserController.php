@@ -149,25 +149,16 @@ class UserController extends Controller
      */
     public function find(Request $request)
     {
-        if (!($request->has('email') || $request->has('username'))) {
+        if (!($request->has('username'))) {
             return Response::create([], 400);
         }
 
-        if($request->has('email')) {
-            $user = User::where('Email', $request->input('email'))->get();
-            if ($user->isNotEmpty()) {
-                return Response::create([], 400);
-            }
+        $user = User::where('Username', $request->input('username'))->get();
+        if ($user->isNotEmpty()) {
+            return Response::create($user, 200);
+        } else {
+            return Response::create([], 404);
         }
-
-        if($request->has('username')) {
-            $user = User::where('Username', $request->input('username'))->get();
-            if ($user->isNotEmpty()) {
-                return Response::create([], 400);
-            }
-        }
-
-        return Response::create([], 200);
     }
 
     /**
