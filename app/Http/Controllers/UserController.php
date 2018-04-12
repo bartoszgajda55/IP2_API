@@ -149,11 +149,16 @@ class UserController extends Controller
      */
     public function find(Request $request)
     {
-        if (!($request->has('email'))) {
+        if (!($request->has('term') && $request->has('type'))) {
             return Response::create([], 400);
         }
 
-        $user = User::where('Email', $request->input('email'))->get();
+        if ($request->input('type') === 'username') {
+            $user = User::where('Username', $request->input('term'))->get();
+        } else if ($request->input('type') === 'email') {
+            $user = User::where('Email', $request->input('term'))->get();
+        }
+
         if ($user->isNotEmpty()) {
             return Response::create($user, 200);
         } else {
