@@ -128,7 +128,7 @@ class UserController extends Controller
             $user->XP = $request->input('xp');
         }
         if($request->has('quizesscompleted')) {
-            $user->QuizessCompleted = $request->input('quizesscompleted');
+            $user->QuizzessCompleted = $request->input('quizesscompleted');
         }
         if($request->has('correctanswers')) {
             $user->CorrectAnswers = $request->input('correctanswers');
