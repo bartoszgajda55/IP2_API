@@ -123,6 +123,4 @@ class QuizController extends Controller
             return Response::create([], 500);
         }
     }
-
-
 }

@@ -33,6 +33,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('quiz/{id}',  ['uses' => 'QuizController@remove']);
 
     $router->post('question', ['uses' => 'QuestionController@create']);
+    $router->post('question/many', ['uses' => 'QuestionController@createMany']);
+    $router->put('question/{id}', ['uses' => 'QuestionController@edit']);
+    $router->delete('question/{id}',  ['uses' => 'QuestionController@remove']);
 
     $router->get('featuredQuiz', ['uses' => 'FeaturedQuizController@index']);
     $router->get('featuredQuiz/{id}',  ['uses' => 'FeaturedQuizController@show']);
