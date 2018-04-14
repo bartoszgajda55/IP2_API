@@ -133,6 +133,9 @@ class UserController extends Controller
         if($request->has('correctanswers')) {
             $user->CorrectAnswers = $request->input('correctanswers');
         }
+        if($request->has('profileimage')) {
+            $user->ProfileImage = $request->input('profileimage');
+        }
 
         if($user->save()) {
             return Response::create([], 200);
