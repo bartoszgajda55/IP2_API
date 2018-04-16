@@ -100,7 +100,7 @@ class QuizController extends Controller
         $quiz->QuizColor = $request->input('quizcolor');
 
         if($quiz->save()) {
-            return Response::create([$quiz], 201);
+            return Response::create($quiz->QuizID, 201);
         } else {
             return Response::create([], 500);
         }
