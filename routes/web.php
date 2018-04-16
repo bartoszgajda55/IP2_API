@@ -40,6 +40,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('featuredQuiz', ['uses' => 'FeaturedQuizController@index']);
     $router->get('featuredQuiz/{id}',  ['uses' => 'FeaturedQuizController@show']);
 
+    $router->get('recentQuiz/{id}',  ['uses' => 'RecentQuizController@show']);
+
     $router->get('blacklist/{id}', ['uses' => 'BlacklistController@show']);
     $router->post('blacklist',  ['uses' => 'BlacklistController@create']);
     $router->delete('blacklist/{id}',  ['uses' => 'BlacklistController@remove']);
