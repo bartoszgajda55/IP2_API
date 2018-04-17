@@ -41,6 +41,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('featuredQuiz/{id}',  ['uses' => 'FeaturedQuizController@show']);
 
     $router->get('recentQuiz/{id}',  ['uses' => 'RecentQuizController@show']);
+    $router->post('recentQuiz',  ['uses' => 'RecentQuizController@create']);
 
     $router->get('blacklist/{id}', ['uses' => 'BlacklistController@show']);
     $router->post('blacklist',  ['uses' => 'BlacklistController@create']);
