@@ -62,7 +62,7 @@ class UserController extends Controller
      */
     public function showFriends($id)
     {
-        $userFriends = UserFriend::where('User1ID', $id)->orWhere('User2ID', $id)->get();
+        $userFriends = UserFriend::select('User2ID')->where('User1ID', $id)->get();
         if($userFriends->isNotEmpty()) {
             return Response::create($userFriends, 200);
         } else {
