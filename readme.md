@@ -1,5 +1,6 @@
 # IP2 API
 RESTful API for IP2 Android application, created with Lumen Framework. Hosted using Heroku Cloud.
+
 API Url = https://ip2-api.herokuapp.com (might not be available, run out of Heroku Cloud free plan)
 # Endpoints
 ## Get ban reason
